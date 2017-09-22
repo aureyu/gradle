@@ -17,6 +17,7 @@
 package org.gradle.test.fixtures.server.http
 
 import com.google.common.collect.Sets
+import org.gradle.util.ports.FixedAvailablePortAllocator
 import org.mortbay.jetty.Connector
 import org.mortbay.jetty.Handler
 import org.mortbay.jetty.HttpHeaders
@@ -99,7 +100,7 @@ trait HttpServerFixture {
         }
 
         connector = new SocketConnector()
-        connector.port = 0
+        connector.port = FixedAvailablePortAllocator.instance.assignPort()
         server.addConnector(connector)
         server.start()
         for (int i = 0; i < 5; i++) {
